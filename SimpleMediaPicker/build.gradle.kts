@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+
+    id("maven-publish")
 }
 
 android {
@@ -21,11 +23,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 }
 
@@ -37,4 +39,18 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+}
+
+afterEvaluate { // <-- needed because only here components are available
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                groupId = "com.lunarx.libraries"
+                artifactId = "simplemediapicker"
+                version = "0.1"
+
+                from(components["release"])
+            }
+        }
+    }
 }
