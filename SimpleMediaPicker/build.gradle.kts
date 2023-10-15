@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.lunarx.libraries.simplemediapicker"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
